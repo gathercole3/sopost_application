@@ -1,0 +1,20 @@
+version: "2.2"
+services:
+  app:
+    build: ./app
+    environment:
+      - SECRET_KEY=you-will-never-guess
+      - APP_NAME=sopost_test_app
+    ports:
+        - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+        - redis
+  redis:
+    image: redis:3.0.5
+
+
